@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tharun Veluru — Data Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f5f2eb;
+    --accent: #c8410a;
+    --accent2: #1a3a5c;
+    --muted: #6b6560;
+    --border: #d4cfc8;
+    --card: #ffffff;
+    --tag-bg: #eae6df;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ───────────────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(245,242,235,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.1rem;
+    color: var(--ink); text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem; font-weight: 400;
+    color: var(--muted); text-decoration: none;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ──────────────────────────────────────────────── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 5rem 4rem 5rem 5rem;
+    position: relative; z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem; letter-spacing: 0.15em;
+    color: var(--accent); text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block; width: 2rem; height: 1px;
+    background: var(--accent);
+  }
+
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: clamp(3rem, 5vw, 4.5rem);
+    line-height: 1.0; letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+  }
+  .hero-name .line2 { color: var(--accent2); }
+
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1rem, 1.8vw, 1.4rem);
+    font-weight: 600; color: var(--muted);
+    margin-bottom: 2rem;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-desc {
+    font-size: 0.95rem; line-height: 1.75;
+    color: var(--muted); max-width: 440px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.85rem 2rem;
+    background: var(--accent); color: #fff;
+    border: none; cursor: pointer; text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: #a33308; transform: translateY(-2px); }
+
+  .btn-outline {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.85rem 2rem;
+    background: transparent; color: var(--ink);
+    border: 1.5px solid var(--border); cursor: pointer; text-decoration: none;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--ink); transform: translateY(-2px); }
+
+  /* stats bar */
+  .hero-stats {
+    display: flex; gap: 2.5rem;
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .stat-item {}
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.8rem;
+    color: var(--accent); line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.1em;
+    color: var(--muted); text-transform: uppercase;
+    margin-top: 0.25rem;
+  }
+
+  /* hero right — decorative data panel */
+  .hero-right {
+    display: flex; align-items: center; justify-content: center;
+    padding: 4rem 4rem 4rem 2rem;
+    position: relative;
+  }
+
+  .data-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    width: 100%; max-width: 380px;
+    position: relative;
+    box-shadow: 4px 4px 0px var(--accent);
+  }
+  .data-card-header {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 1.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .data-card-header .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); animation: blink 2s infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+  .skill-bar-group { display: flex; flex-direction: column; gap: 1rem; }
+  .skill-bar-item {}
+  .skill-bar-top {
+    display: flex; justify-content: space-between;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem; color: var(--ink); margin-bottom: 0.4rem;
+  }
+  .skill-bar-track {
+    height: 4px; background: var(--tag-bg);
+    position: relative; overflow: hidden;
+  }
+  .skill-bar-fill {
+    height: 100%; background: var(--accent2);
+    animation: fillBar 1.5s ease forwards;
+    transform-origin: left;
+  }
+  @keyframes fillBar { from{width:0} }
+
+  .divider-line {
+    border: none; border-top: 1px solid var(--border);
+    margin: 1.5rem 0;
+  }
+
+  .tool-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tool-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.06em;
+    padding: 0.3rem 0.7rem;
+    background: var(--tag-bg); color: var(--ink);
+    border: 1px solid var(--border);
+  }
+
+  /* bg decoration */
+  .bg-grid {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  /* ── SECTIONS SHARED ──────────────────────────────────── */
+  section { padding: 7rem 5rem; position: relative; }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-label::before {
+    content: ''; display: inline-block;
+    width: 1.5rem; height: 1px; background: var(--accent);
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: clamp(2rem, 3.5vw, 2.8rem);
+    line-height: 1.1; letter-spacing: -0.03em;
+    color: var(--ink); margin-bottom: 3rem;
+  }
+  .section-title em { color: var(--accent); font-style: normal; }
+
+  /* ── EXPERIENCE ───────────────────────────────────────── */
+  #experience { background: var(--ink); color: var(--paper); }
+  #experience .section-label { color: var(--accent); }
+  #experience .section-title { color: var(--paper); }
+
+  .exp-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 0 4rem;
+  }
+
+  .exp-timeline {
+    display: flex; flex-direction: column;
+    gap: 0; position: relative;
+  }
+  .exp-timeline::before {
+    content: ''; position: absolute;
+    left: 50%; top: 8px; bottom: 8px; width: 1px;
+    background: #333; transform: translateX(-50%);
+  }
+
+  .exp-entry {
+    display: contents;
+  }
+
+  .exp-left {
+    text-align: right;
+    padding: 0 2rem 3rem 0;
+    position: relative;
+  }
+  .exp-left::after {
+    content: ''; position: absolute;
+    right: -6px; top: 6px;
+    width: 11px; height: 11px; border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--ink);
+  }
+
+  .exp-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.1em;
+    color: #666; text-transform: uppercase; line-height: 1.6;
+  }
+  .exp-company {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: 1rem;
+    color: var(--paper); margin-top: 0.25rem;
+  }
+
+  .exp-right { padding: 0 0 3rem 2rem; }
+  .exp-role {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600; font-size: 1.1rem;
+    color: var(--accent); margin-bottom: 1rem;
+  }
+  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .exp-bullets li {
+    font-size: 0.875rem; line-height: 1.65;
+    color: #aaa; padding-left: 1.25rem; position: relative;
+  }
+  .exp-bullets li::before {
+    content: '→'; position: absolute; left: 0;
+    color: var(--accent); font-size: 0.75rem;
+  }
+  .exp-bullets li strong { color: var(--paper); font-weight: 500; }
+
+  .exp-divider {
+    grid-column: 1 / -1;
+    border: none; border-top: 1px solid #222;
+    margin-bottom: 3rem;
+  }
+
+  /* ── SKILLS ───────────────────────────────────────────── */
+  #skills { background: var(--paper); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    transition: all 0.25s;
+    position: relative; overflow: hidden;
+  }
+  .skill-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .skill-card:hover::before { transform: scaleX(1); }
+  .skill-card:hover { box-shadow: 4px 4px 0 var(--border); transform: translate(-2px,-2px); }
+
+  .skill-card-icon {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.5rem; margin-bottom: 1rem; display: block;
+  }
+  .skill-card-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: 1rem;
+    margin-bottom: 0.75rem; color: var(--ink);
+  }
+  .skill-card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .skill-card-tags span {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem; letter-spacing: 0.05em;
+    padding: 0.25rem 0.6rem;
+    background: var(--tag-bg); color: var(--muted);
+    border: 1px solid var(--border);
+  }
+
+  /* ── ACHIEVEMENTS ─────────────────────────────────────── */
+  #achievements { background: var(--accent2); color: var(--paper); }
+  #achievements .section-label { color: #7fa8d4; }
+  #achievements .section-title { color: var(--paper); }
+  #achievements .section-title em { color: #f4a56a; }
+
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .achieve-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 2rem;
+    transition: background 0.25s;
+  }
+  .achieve-card:hover { background: rgba(255,255,255,0.09); }
+
+  .achieve-num {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 3rem;
+    color: #f4a56a; line-height: 1;
+    letter-spacing: -0.04em; margin-bottom: 0.5rem;
+  }
+  .achieve-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600; font-size: 1rem;
+    color: var(--paper); margin-bottom: 0.5rem;
+  }
+  .achieve-desc {
+    font-size: 0.85rem; line-height: 1.65;
+    color: rgba(245,242,235,0.6);
+  }
+
+  /* ── CERTIFICATIONS ───────────────────────────────────── */
+  #certifications { background: var(--paper); }
+
+  .cert-list {
+    display: flex; flex-direction: column; gap: 0;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .cert-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 2rem;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+    gap: 1rem;
+  }
+  .cert-item:last-child { border-bottom: none; }
+  .cert-item:hover { background: var(--tag-bg); }
+
+  .cert-left { display: flex; align-items: center; gap: 1.5rem; }
+  .cert-index {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem; color: var(--muted);
+    width: 24px; flex-shrink: 0;
+  }
+  .cert-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600; font-size: 0.95rem; color: var(--ink);
+  }
+  .cert-issuer {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.08em;
+    color: var(--muted); text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  /* ── CONTACT ──────────────────────────────────────────── */
+  #contact {
+    background: var(--ink);
+    color: var(--paper);
+    text-align: center;
+    padding: 8rem 5rem;
+  }
+  #contact .section-label { justify-content: center; }
+  #contact .section-label::before { display: none; }
+  #contact .section-title { color: var(--paper); margin-bottom: 1.5rem; }
+
+  .contact-sub {
+    font-size: 0.95rem; color: #777;
+    max-width: 440px; margin: 0 auto 3rem;
+    font-weight: 300; line-height: 1.75;
+  }
+
+  .contact-links {
+    display: flex; gap: 1.5rem; justify-content: center;
+    flex-wrap: wrap; margin-bottom: 4rem;
+  }
+  .contact-link {
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    padding: 1.5rem 2.5rem;
+    border: 1px solid #333;
+    color: var(--paper); text-decoration: none;
+    transition: all 0.2s; min-width: 160px;
+  }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); }
+  .contact-link-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #555;
+  }
+  .contact-link-value {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600; font-size: 0.9rem;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid #1a1a1a; padding-top: 2rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.1em;
+    color: #444; text-transform: uppercase;
+  }
+
+  /* ── ANIMATIONS ───────────────────────────────────────── */
+  .fade-up {
+    opacity: 0; transform: translateY(24px);
+    animation: fadeUp 0.7s ease forwards;
+  }
+  .fade-up-d1 { animation-delay: 0.1s; }
+  .fade-up-d2 { animation-delay: 0.2s; }
+  .fade-up-d3 { animation-delay: 0.35s; }
+  .fade-up-d4 { animation-delay: 0.5s; }
+  .fade-up-d5 { animation-delay: 0.65s; }
+
+  @keyframes fadeUp {
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  /* ── RESPONSIVE ───────────────────────────────────────── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    #hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 6rem 1.5rem 3rem; }
+    section { padding: 4rem 1.5rem; }
+    .exp-grid { grid-template-columns: 1fr; gap: 0; }
+    .exp-left { text-align: left; padding: 0 0 0.5rem 2rem; }
+    .exp-left::after { left: -6px; right: auto; }
+    .exp-timeline::before { left: 0; }
+    .exp-right { padding: 0 0 2.5rem 2rem; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .achievements-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .skills-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hero-stats { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">TV<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="bg-grid"></div>
+  <div class="hero-left">
+    <div class="hero-eyebrow fade-up fade-up-d1">Data Analyst · Hyderabad, India</div>
+    <h1 class="hero-name fade-up fade-up-d2">
+      Tharun<br><span class="line2">Veluru</span>
+    </h1>
+    <p class="hero-title fade-up fade-up-d3">Turning Raw Data Into Business Strategy</p>
+    <p class="hero-desc fade-up fade-up-d4">
+      2+ years delivering data-driven decisions at Amazon &amp; NxtWave. 
+      Skilled in SQL, Power BI, Python, and BigQuery — building dashboards 
+      and pipelines that leadership actually uses.
+    </p>
+    <div class="hero-ctas fade-up fade-up-d5">
+      <a href="#experience" class="btn-primary">View Experience</a>
+      <a href="#contact" class="btn-outline">Get In Touch</a>
+    </div>
+    <div class="hero-stats fade-up fade-up-d5">
+      <div class="stat-item">
+        <div class="stat-num">2+</div>
+        <div class="stat-label">Years Exp.</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">25+</div>
+        <div class="stat-label">Dashboards Built</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">1M+</div>
+        <div class="stat-label">Rows Analyzed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">30%</div>
+        <div class="stat-label">Error Reduction</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="data-card">
+      <div class="data-card-header">
+        <span>Skill Proficiency</span>
+        <span class="dot"></span>
+      </div>
+      <div class="skill-bar-group">
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span>SQL / BigQuery</span><span>95%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:95%"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span>Power BI / DAX</span><span>90%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%;animation-delay:0.2s"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span>Python (Pandas)</span><span>82%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:82%;animation-delay:0.4s"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span>Data Mapping / ETL</span><span>88%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:88%;animation-delay:0.6s"></div></div>
+        </div>
+        <div class="skill-bar-item">
+          <div class="skill-bar-top"><span>Looker Studio</span><span>85%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%;animation-delay:0.8s"></div></div>
+        </div>
+      </div>
+      <hr class="divider-line">
+      <div class="data-card-header" style="margin-bottom:0.75rem">
+        <span>Core Tools</span>
+      </div>
+      <div class="tool-tags">
+        <span class="tool-tag">SQL</span>
+        <span class="tool-tag">PL/SQL</span>
+        <span class="tool-tag">BigQuery</span>
+        <span class="tool-tag">Power BI</span>
+        <span class="tool-tag">Python</span>
+        <span class="tool-tag">Looker</span>
+        <span class="tool-tag">Excel</span>
+        <span class="tool-tag">GCP</span>
+        <span class="tool-tag">MySQL</span>
+        <span class="tool-tag">ETL</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Career Timeline</div>
+  <h2 class="section-title">Work <em>Experience</em></h2>
+
+  <div class="exp-grid">
+
+    <div class="exp-left">
+      <div class="exp-date">Sep 2025 — Present</div>
+      <div class="exp-company">NxtWave</div>
+    </div>
+    <div class="exp-right">
+      <div class="exp-role">Data Analyst</div>
+      <ul class="exp-bullets">
+        <li>Built <strong>10+ Power BI dashboards</strong> with DAX measures tracking real-time KPIs used by senior leadership daily.</li>
+        <li>Wrote complex SQL (CTEs, Window Functions, Joins) in <strong>Google BigQuery</strong> analyzing 1M+ record datasets.</li>
+        <li>Reduced data pipeline errors by <strong>~30%</strong> through data cleaning and validation across 5+ reporting pipelines.</li>
+        <li>Created <strong>STTM documents</strong> and transformation logic; managed end-to-end ETL workflows.</li>
+        <li>Built <strong>Google Looker Studio</strong> dashboards for 3+ business teams with full data definitions.</li>
+      </ul>
+    </div>
+
+    <hr class="exp-divider">
+
+    <div class="exp-left">
+      <div class="exp-date">Feb 2024 — Sep 2025</div>
+      <div class="exp-company">Amazon</div>
+    </div>
+    <div class="exp-right">
+      <div class="exp-role">Junior Data Analyst · HYD13 Campus</div>
+      <ul class="exp-bullets">
+        <li>Analyzed <strong>500K+ row</strong> transportation datasets using Python and SQL for HYD13 fulfilment network KPIs.</li>
+        <li>Built and maintained <strong>8+ Power BI dashboards</strong> tracking on-time delivery, vehicle utilisation, and shipment SLAs.</li>
+        <li>Conducted EDA on shipment volumes and route performance to identify trends and delivery delays.</li>
+        <li>Collaborated with <strong>5+ cross-functional global</strong> transport teams on end-to-end reporting pipelines.</li>
+      </ul>
+    </div>
+
+    <hr class="exp-divider">
+
+    <div class="exp-left">
+      <div class="exp-date">Mar 2023 — Dec 2023</div>
+      <div class="exp-company">Hero Vired</div>
+    </div>
+    <div class="exp-right">
+      <div class="exp-role">Data Science Intern</div>
+      <ul class="exp-bullets">
+        <li>Cleaned and preprocessed 3+ structured datasets using Python (Pandas, NumPy).</li>
+        <li>Built regression models achieving <strong>85%+ accuracy</strong> using Random Forest with GridSearchCV tuning.</li>
+        <li>Capstone: <strong>Laptop Price Prediction</strong> ML model — feature engineering on 1,000+ records, compared 4 algorithms.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Technical Toolkit</div>
+  <h2 class="section-title">Core <em>Skills</em></h2>
+
+  <div class="skills-grid">
+    <div class="skill-card">
+      <span class="skill-card-icon">🗄️</span>
+      <div class="skill-card-title">SQL & Databases</div>
+      <div class="skill-card-tags">
+        <span>SQL</span><span>PL/SQL</span><span>CTEs</span>
+        <span>Window Functions</span><span>Joins</span>
+        <span>MySQL</span><span>Google BigQuery</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-card-icon">📊</span>
+      <div class="skill-card-title">Data Visualization & BI</div>
+      <div class="skill-card-tags">
+        <span>Power BI</span><span>DAX</span><span>Data Modeling</span>
+        <span>Looker Studio</span><span>Excel</span><span>Pivot Tables</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-card-icon">🐍</span>
+      <div class="skill-card-title">Programming</div>
+      <div class="skill-card-tags">
+        <span>Python</span><span>Pandas</span><span>NumPy</span>
+        <span>Matplotlib</span><span>Seaborn</span><span>Scikit-learn</span>
+        <span>Jupyter</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-card-icon">⚙️</span>
+      <div class="skill-card-title">Data Engineering</div>
+      <div class="skill-card-tags">
+        <span>ETL Pipelines</span><span>Data Mapping</span><span>STTM</span>
+        <span>Data Profiling</span><span>Data Validation</span><span>GCP</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-card-icon">🔬</span>
+      <div class="skill-card-title">Analysis & ML</div>
+      <div class="skill-card-tags">
+        <span>EDA</span><span>Statistical Analysis</span>
+        <span>Regression</span><span>Feature Engineering</span>
+        <span>Anomaly Detection</span><span>KPI Reporting</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <span class="skill-card-icon">🏥</span>
+      <div class="skill-card-title">Domain Awareness</div>
+      <div class="skill-card-tags">
+        <span>Healthcare Analytics</span><span>HL7 FHIR</span>
+        <span>EDI Standards</span><span>E-commerce</span><span>EdTech</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-label">Impact & Numbers</div>
+  <h2 class="section-title">Key <em>Achievements</em></h2>
+
+  <div class="achievements-grid">
+    <div class="achieve-card">
+      <div class="achieve-num">~30%</div>
+      <div class="achieve-title">Pipeline Error Reduction</div>
+      <div class="achieve-desc">Reduced data pipeline errors across 5+ reporting pipelines at NxtWave through rigorous data cleaning, validation, and quality checks using SQL and Google Sheets.</div>
+    </div>
+    <div class="achieve-card">
+      <div class="achieve-num">25+</div>
+      <div class="achieve-title">Dashboards Built</div>
+      <div class="achieve-desc">Designed and delivered 10+ Power BI dashboards at NxtWave and 8+ at Amazon, used daily by senior leadership for operational KPI tracking and strategic decisions.</div>
+    </div>
+    <div class="achieve-card">
+      <div class="achieve-num">1M+</div>
+      <div class="achieve-title">Records Analyzed</div>
+      <div class="achieve-desc">Wrote complex SQL queries on 1M+ record datasets in Google BigQuery and analyzed 500K+ row transportation datasets at Amazon HYD13 to surface business insights.</div>
+    </div>
+    <div class="achieve-card">
+      <div class="achieve-num">85%+</div>
+      <div class="achieve-title">ML Model Accuracy</div>
+      <div class="achieve-desc">Built a Laptop Price Prediction ML model using Random Forest with GridSearchCV hyperparameter tuning, achieving 85%+ accuracy on 1,000+ feature-engineered records.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-label">Credentials</div>
+  <h2 class="section-title">Certifications & <em>Education</em></h2>
+
+  <div class="cert-list">
+    <div class="cert-item">
+      <div class="cert-left">
+        <span class="cert-index">01</span>
+        <span class="cert-name">Microsoft Power BI Data Analyst (PL-300)</span>
+      </div>
+      <span class="cert-issuer">Microsoft</span>
+    </div>
+    <div class="cert-item">
+      <div class="cert-left">
+        <span class="cert-index">02</span>
+        <span class="cert-name">Google Data Analytics Professional Certificate</span>
+      </div>
+      <span class="cert-issuer">Google / Coursera</span>
+    </div>
+    <div class="cert-item">
+      <div class="cert-left">
+        <span class="cert-index">03</span>
+        <span class="cert-name">SQL for Data Science</span>
+      </div>
+      <span class="cert-issuer">UC Davis / Coursera</span>
+    </div>
+    <div class="cert-item">
+      <div class="cert-left">
+        <span class="cert-index">04</span>
+        <span class="cert-name">Data Science Training Program</span>
+      </div>
+      <span class="cert-issuer">Hero Vired</span>
+    </div>
+    <div class="cert-item">
+      <div class="cert-left">
+        <span class="cert-index">05</span>
+        <span class="cert-name">B.Tech — Electrical & Electronics Engineering</span>
+      </div>
+      <span class="cert-issuer">JNTU Kakinada</span>
+    </div>
+    <div class="cert-item">
+      <div class="cert-left">
+        <span class="cert-index">06</span>
+        <span class="cert-name">Diploma — Electrical & Electronics Engineering</span>
+      </div>
+      <span class="cert-issuer">Sri Venkateswara Univ.</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Let's Connect</div>
+  <h2 class="section-title">Get In <em>Touch</em></h2>
+  <p class="contact-sub">Open to Data Analyst, BI Analyst, and Analytics Engineer roles. Feel free to reach out.</p>
+
+  <div class="contact-links">
+    <a href="mailto:velurutharun756@gmail.com" class="contact-link">
+      <span class="contact-link-label">Email</span>
+      <span class="contact-link-value">velurutharun756@gmail.com</span>
+    </a>
+    <a href="tel:+918187032830" class="contact-link">
+      <span class="contact-link-label">Phone</span>
+      <span class="contact-link-value">+91 8187032830</span>
+    </a>
+    <a href="https://linkedin.com/in/veluru-tharun" target="_blank" class="contact-link">
+      <span class="contact-link-label">LinkedIn</span>
+      <span class="contact-link-value">veluru-tharun</span>
+    </a>
+    <a href="#" class="contact-link">
+      <span class="contact-link-label">Location</span>
+      <span class="contact-link-value">Hyderabad, India</span>
+    </a>
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 Tharun Veluru · Data Analyst · Hyderabad
+  </div>
+</section>
+
+<script>
+  // Scroll-triggered fade-in for sections
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.skill-card, .achieve-card, .cert-item, .exp-right').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
